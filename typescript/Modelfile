@@ -1,0 +1,16 @@
+FROM ./llm-jp-13b-instruct-full-ac_001_16x-dolly-ichikara_004_001_single-oasst-oasst2-v2.0-Q4_K_M.gguf
+
+PARAMETER temperature 0.7
+PARAMETER top_p 0.65
+PARAMETER repeat_penalty 1.05
+PARAMETER stop "<EOD|LLM-jp>"
+
+TEMPLATE """{{ if .System }}{{ .System }}{{ end }}{{ if .Prompt }}
+
+### 指示:
+{{ .Prompt }}{{ end }}
+
+### 応答:
+{{ .Response }}<EOD|LLM-jp>"""
+
+SYSTEM """以下は、タスクを説明する指示です。要求を適切に満たす応答を書きなさい。"""
